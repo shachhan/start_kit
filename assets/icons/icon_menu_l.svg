@@ -1,0 +1,8 @@
+<svg id="icon_menu_l" xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45">
+  <rect id="사각형_26" data-name="사각형 26" width="45" height="45" fill="none"/>
+  <g id="btn_메뉴열기" transform="translate(-299 -267.004)">
+    <line id="선_37" data-name="선 37" x2="36" transform="translate(304 278.004)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <line id="선_38" data-name="선 38" x2="36" transform="translate(304 289.966)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <line id="선_39" data-name="선 39" x2="36" transform="translate(304 301.927)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+  </g>
+</svg>

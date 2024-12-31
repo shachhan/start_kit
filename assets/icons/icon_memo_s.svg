@@ -1,0 +1,10 @@
+<svg id="icon_memo_s" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <rect id="사각형_20" data-name="사각형 20" width="28" height="28" fill="none"/>
+  <g id="아이콘" transform="translate(-320.473 -52.339)">
+    <path id="패스_41" data-name="패스 41" d="M340.443,56.339H328.466a3,3,0,0,0-2.994,3V70.317a2.994,2.994,0,0,0,2.994,2.995h4.767V77.3l3.388-3.991h3.822a3,3,0,0,0,2.994-2.995V59.335A3,3,0,0,0,340.443,56.339Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.036"/>
+    <g id="그룹_33" data-name="그룹 33">
+      <line id="선_33" data-name="선 33" x2="3.109" transform="translate(330.05 65.515)" fill="none" stroke="#757575" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.696"/>
+      <line id="선_34" data-name="선 34" x2="8.913" transform="translate(329.998 61.894)" fill="none" stroke="#757575" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.696"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+<svg id="icon_pen_s" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <rect id="사각형_18" data-name="사각형 18" width="28" height="28" fill="none"/>
+  <g id="Vector_Smart_Object" data-name="Vector Smart Object" transform="translate(-237.322 -69.958)">
+    <g id="그룹_35" data-name="그룹 35" transform="translate(241.322 73.958)">
+      <g id="그룹_34" data-name="그룹 34">
+        <path id="패스_42" data-name="패스 42" d="M252.584,76.817l5.878,5.878L248.285,92.873l-6.962,1.085L242.407,87Z" transform="translate(-241.322 -73.958)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.702"/>
+        <path id="패스_43" data-name="패스 43" d="M241.9,89.768l-.578,3.714,3.714-.578Z" transform="translate(-241.322 -73.481)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.702"/>
+        <path id="사각형_15" data-name="사각형 15" d="M0,0H8.082a0,0,0,0,1,0,0V1.085A2.959,2.959,0,0,1,5.122,4.044H2.959A2.959,2.959,0,0,1,0,1.085V0A0,0,0,0,1,0,0Z" transform="matrix(-0.707, -0.707, 0.707, -0.707, 17.14, 8.574)" fill="#fede00" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.702"/>
+      </g>
+    </g>
+  </g>
+</svg>

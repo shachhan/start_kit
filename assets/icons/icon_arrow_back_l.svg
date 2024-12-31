@@ -1,0 +1,9 @@
+<svg id="icon_arrow_back_l" xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45">
+  <rect id="사각형_25" data-name="사각형 25" width="45" height="45" fill="none"/>
+  <g id="btn_뒤로가기" transform="translate(-237.043 -580.13)">
+    <g id="그룹_40" data-name="그룹 40">
+      <line id="선_40" data-name="선 40" x1="34.866" transform="translate(243.177 602.619)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <path id="패스_50" data-name="패스 50" d="M254.66,616.107l-12.617-13.488L254.66,589.13" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.012"/>
+    </g>
+  </g>
+</svg>
