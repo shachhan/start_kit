@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-
 import 'myFont.dart';
 
 class ColorPalette {
