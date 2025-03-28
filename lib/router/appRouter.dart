@@ -1,50 +1,64 @@
-import 'package:start_kit01/function/logger.dart';
-import 'package:start_kit01/page/errorPage.dart';
-import 'package:start_kit01/page/homePage.dart';
-import 'package:start_kit01/page/initPage.dart';
-import 'package:start_kit01/page/loginPage.dart';
-import 'package:start_kit01/page/tempPage.dart';
-import 'package:start_kit01/router/routeUtils.dart';
-import 'package:start_kit01/service/appService.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../view/errorView.dart';
+import '../view/homeView.dart';
+import '../view/initView.dart';
+import '../view/loginView.dart';
+import '../view/tempView.dart';
+import '../service/appService.dart';
+import '../util/logger.dart';
+import 'routeUtils.dart';
+
+part 'appRouter.g.dart';
+// AppRouter Provider 생성
+@riverpod
+GoRouter appRouter(Ref ref) {
+  final initialRoute = RouteUtil.path.init; // 초기 경로 설정
+  return AppRouter(ref, initialRoute).router;
+}
 
 class AppRouter {
-  late AppService appService;
-  GoRouter get router => _goRouter;
+  final Ref _ref;
+  final String _initialRoute;
   final _parentKey = GlobalKey<NavigatorState>();
-  final _mainShellKey = GlobalKey<NavigatorState>();
+  final _homeShellKey = GlobalKey<NavigatorState>();
+  late final AppStateListenable _appStateListenable;
 
-  AppRouter(this.appService);
+  AppRouter(this._ref, this._initialRoute) {
+    _appStateListenable = AppStateListenable(_ref);
+  }
+
+  GoRouter get router => _goRouter;
   late final GoRouter _goRouter = GoRouter(
-    // initialLocation: '/init',
+    // debugLogDiagnostics: true,
+    // initialLocation: _initialRoute,
     navigatorKey: _parentKey,
     routes: [
-      GoRoute(path: RouteUtil.path.temp, builder: (context, state) => const TempPage()),
-      GoRoute(path: RouteUtil.path.error, builder: (context, state) => const ErrorPage()),
-      GoRoute(path: RouteUtil.path.init, builder: (context, state) => const InitPage()),
-      GoRoute(path: RouteUtil.path.login, builder: (context, state) => const LoginPage()),
-      GoRoute(path: RouteUtil.path.home, builder: (context, state) => const HomePage()),
+      GoRoute(path: RouteUtil.path.error, builder: (context, state) => const ErrorView()),
+      GoRoute(path: RouteUtil.path.temp, builder: (context, state) => const TempView()),
+      GoRoute(path: RouteUtil.path.init, builder: (context, state) => const InitView()),
+      GoRoute(path: RouteUtil.path.login, builder: (context, state) => const LoginView()),
+      GoRoute(path: RouteUtil.path.home, builder: (context, state) => const HomeView()),
     ],
-    errorBuilder: (context, state) => const ErrorPage(),
-    refreshListenable: appService,
+    errorBuilder: (context, state) => const ErrorView(),
+    refreshListenable: _appStateListenable, // Listenable 객체 설정
     redirect: (context, state) {
-      // ! you have to use AppRouter(appService) in main.dart precisely
-      final isInitialized = appService.initialized;
-      final isLoggedIn = appService.loginState;
+      // 앱 상태를 항상 listen 하기 위해 watch 사용
+      final appState = _ref.watch(appServiceProvider);
+      final isInit = appState.initialized;
+      final isLogin = appState.loginState;
 
-      if (!isInitialized && !isLoggedIn) {
-        // logger.i('not initialized 1');
+      // 초기화 되지 않았을 경우 init 페이지로 이동
+      if (!isInit && !isLogin) {
         return RouteUtil.path.init;
-      } else if (isInitialized && !isLoggedIn) {
-        // logger.i('not logged in');
+      } else if (isInit && !isLogin) {
         return RouteUtil.path.login;
-      } else if (isInitialized && isLoggedIn) {
-        // logger.i('logged in');
-        return null;
       } else {
-        logger.i('not initialized : never happen');
-        return RouteUtil.path.init;
+        // 초기화가 완료되고 로그인 상태일 경우 홈 페이지로 이동
+        return null;
       }
     },
   );

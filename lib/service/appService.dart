@@ -1,35 +1,43 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class AppService with ChangeNotifier {
-  bool _loginState = false;
-  bool _initialized = false;
+import '../model/appState.dart';
 
-  bool get loginState => _loginState;
-  bool get initialized => _initialized;
+part 'appService.g.dart';
 
-  Future<void> onAppStart() async {
-    _initialized = true;
-    notifyListeners();
+// Annotated Notifier class for Riverpod code generation
+@riverpod
+class AppService extends _$AppService {
+  @override
+  AppState build() {
+    return AppState.initial();
   }
 
   void onLoginSuccess() {
-    _loginState = true;
-    notifyListeners();
+    state = state.copyWith(loginState: true);
   }
 
   void onLogout() {
-    _loginState = false;
-    notifyListeners();
+    state = state.copyWith(loginState: false);
   }
 
   void onInitSuccess() {
-    _initialized = true;
-    notifyListeners();
+    state = state.copyWith(initialized: true);
   }
 
   void onAutoLoginSuccess() {
-    _initialized = true;
-    _loginState = true;
-    notifyListeners();
+    state = state.copyWith(initialized: true, loginState: true);
+  }
+}
+
+// AppService의 상태 변화를 추적하기 위한 Listenable 클래스
+class AppStateListenable extends ChangeNotifier {
+  final Ref ref;
+
+  AppStateListenable(this.ref) {
+    ref.listen(appServiceProvider, (_, __) {
+      notifyListeners();
+    });
   }
 }

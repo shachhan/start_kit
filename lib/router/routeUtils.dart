@@ -1,9 +1,17 @@
+import 'package:flutter/cupertino.dart';
+
 class RouteUtil {
-  static RoutePath path = RoutePath();
-  static RouteName name = RouteName();
+  const RouteUtil._();
+
+  static RoutePath path = RoutePath.instance;
+  static RouteName name = RouteName.instance;
 }
 
 class RoutePath {
+  const RoutePath._();
+  static final RoutePath instance = RoutePath._();
+
+
   String get temp => '/temp';
   String get error => '/error';
   String get init => '/init';
@@ -12,6 +20,9 @@ class RoutePath {
 }
 
 class RouteName {
+  const RouteName._();
+  static final RouteName instance = RouteName._();
+
   String get temp => 'Temp';
   String get error => 'Error';
   String get init => 'Init';

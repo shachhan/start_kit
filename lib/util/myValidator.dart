@@ -31,18 +31,18 @@ class MyValidator {
     if (char!.isEmpty) {
       return '필수입력 항목입니다.';
     } else if (!regExp.hasMatch(char)) {
-      return '영문 대소문자, 숫자만 입력가능합니다.';
+      return '영문 대소문자, 숫자로 4~20자 입력';
     }
     return null;
   }
 
   static String? passwordValidator(String? char) {
     // var regExp = RegExp(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*;:~])[a-zA-Z\d!@#$%^&*;:~]{6,15}');
-    var regExp = RegExp(r'^(?=.*[a-zA-Z\d!@#$%^]){6,15}');
+    final regExp = RegExp(r'^(?:(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{10,20}|(?=.*[a-zA-Z])(?=.*[!@#$%^&*_-])[a-zA-Z!@#$%^&*_-]{10,20}|(?=.*\d)(?=.*[!@#$%^&*_-])[\d!@#$%^&*_-]{10,20}|(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*_-])[a-zA-Z\d!@#$%^&*_-]{8,20})$');
     if (char!.isEmpty) {
       return '필수입력 항목입니다.';
     } else if (!regExp.hasMatch(char)) {
-      return '영문 대소문자, 숫자, 특수문자로 6~15자 입니다.';
+      return '영문 대소문자, 숫자, 특수문자 중 2종류 이상 10~20자 또는 3종류 이상 8~20자입니다.\n특수문자: !@#\$%^&*_-';
     } else {
       return null;
     }

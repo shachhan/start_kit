@@ -1,11 +1,12 @@
-import 'package:start_kit01/constant/designSize.dart';
-import 'package:start_kit01/style/style.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+import '../constant/designSize.dart';
+import '../style/style.dart';
+
+class HomeView extends StatelessWidget {
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {

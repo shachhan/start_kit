@@ -1,11 +1,12 @@
-import 'package:start_kit01/constant/designSize.dart';
-import 'package:start_kit01/style/style.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class TempPage extends StatelessWidget {
-  const TempPage({super.key});
+import '../constant/designSize.dart';
+import '../style/style.dart';
+
+class ErrorView extends StatelessWidget {
+  const ErrorView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class TempPage extends StatelessWidget {
       return Scaffold(
         body: Center(
           child: Text(
-            'iOS 임시페이지입니다.',
+            'iOS 오류페이지입니다.',
             style: TextGuide.notoRegular16.copyWith(fontSize: 16.sp),
           ),
         ),
@@ -24,7 +25,7 @@ class TempPage extends StatelessWidget {
       return Scaffold(
         body: Center(
           child: Text(
-            'Android 임시페이지입니다.',
+            'Android 오류페이지입니다.',
             style: TextGuide.notoRegular16.copyWith(fontSize: 16.sp),
           ),
         ),
@@ -32,7 +33,7 @@ class TempPage extends StatelessWidget {
     } else {
       return const Scaffold(
         body: Center(
-          child: Text('Temp Page'),
+          child: Text('Error Page'),
         ),
       );
     }

@@ -1,4 +1,4 @@
-class DateFunction {
+class DateUtil {
   // 주의 첫날 찾기
   static firstDayOfWeek({required DateTime date}) {
     DateTime result = DateTime(date.year, date.month, date.day - (date.weekday - 1));
