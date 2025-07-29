@@ -13,10 +13,9 @@ String _$albumRepositoryHash() => r'de92e6969699abb63bdb71d3a79928cc01597def';
 final albumRepositoryProvider = AutoDisposeProvider<AlbumRepository>.internal(
   albumRepository,
   name: r'albumRepositoryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$albumRepositoryHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$albumRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -31,19 +30,19 @@ String _$albumViewModelHash() => r'273621dbdaf75639af1ccbfafb65c619dd291635';
 ///
 /// Copied from [AlbumViewModel].
 @ProviderFor(AlbumViewModel)
-final albumViewModelProvider = AutoDisposeNotifierProvider<
-  AlbumViewModel,
-  AsyncValue<List<Album>>
->.internal(
-  AlbumViewModel.new,
-  name: r'albumViewModelProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
+final albumViewModelProvider =
+    AutoDisposeNotifierProvider<
+      AlbumViewModel,
+      AsyncValue<List<Album>>
+    >.internal(
+      AlbumViewModel.new,
+      name: r'albumViewModelProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
           : _$albumViewModelHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$AlbumViewModel = AutoDisposeNotifier<AsyncValue<List<Album>>>;
 // ignore_for_file: type=lint

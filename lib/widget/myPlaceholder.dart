@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:start_kit01/style/style.dart';
+import '../style/style.dart';
 
 class MyPlaceholder extends StatelessWidget {
   const MyPlaceholder({

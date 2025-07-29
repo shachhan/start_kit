@@ -11,6 +11,12 @@ class ColorPalette {
   static const greyDark2 = Color(0xff595959);
   static const borderGrey = Color(0xffafafaf);
   static const borderLightGrey = Color(0xffc6c6c6);
+
+  static const primary = Color(0xffFED400);
+  static const secondary = Color(0xff02cebb);
+  static const background = Color(0xfff8faf9);
+  static const appbarBack = Color(0xffffdf00);
+  static const overlay = Color(0x2f02cebb);
 }
 
 class TextGuide {

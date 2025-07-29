@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:start_kit01/style/style.dart';
+import '../style/style.dart';
 
 class ErrDialog extends StatelessWidget {
   final String content;

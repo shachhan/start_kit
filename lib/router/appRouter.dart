@@ -1,22 +1,22 @@
-import 'package:flutter/widgets.dart';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../service/appService.dart';
 import '../view/errorView.dart';
 import '../view/homeView.dart';
 import '../view/initView.dart';
 import '../view/loginView.dart';
 import '../view/tempView.dart';
-import '../service/appService.dart';
-import '../util/logger.dart';
 import 'routeUtils.dart';
 
 part 'appRouter.g.dart';
-// AppRouter Provider 생성
+
 @riverpod
 GoRouter appRouter(Ref ref) {
-  final initialRoute = RouteUtil.path.init; // 초기 경로 설정
+  final initialRoute = RouteUtil.path.init;   // 초기 경로 설정
   return AppRouter(ref, initialRoute).router;
 }
 
@@ -24,7 +24,6 @@ class AppRouter {
   final Ref _ref;
   final String _initialRoute;
   final _parentKey = GlobalKey<NavigatorState>();
-  final _homeShellKey = GlobalKey<NavigatorState>();
   late final AppStateListenable _appStateListenable;
 
   AppRouter(this._ref, this._initialRoute) {
@@ -33,9 +32,8 @@ class AppRouter {
 
   GoRouter get router => _goRouter;
   late final GoRouter _goRouter = GoRouter(
-    // debugLogDiagnostics: true,
-    // initialLocation: _initialRoute,
     navigatorKey: _parentKey,
+    initialLocation: _initialRoute,
     routes: [
       GoRoute(path: RouteUtil.path.error, builder: (context, state) => const ErrorView()),
       GoRoute(path: RouteUtil.path.temp, builder: (context, state) => const TempView()),
@@ -44,7 +42,7 @@ class AppRouter {
       GoRoute(path: RouteUtil.path.home, builder: (context, state) => const HomeView()),
     ],
     errorBuilder: (context, state) => const ErrorView(),
-    refreshListenable: _appStateListenable, // Listenable 객체 설정
+    refreshListenable: _appStateListenable,
     redirect: (context, state) {
       // 앱 상태를 항상 listen 하기 위해 watch 사용
       final appState = _ref.watch(appServiceProvider);

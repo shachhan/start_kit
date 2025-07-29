@@ -3,15 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../model/appState.dart';
+import '../util/logger.dart';
 
 part 'appService.g.dart';
 
-// Annotated Notifier class for Riverpod code generation
 @riverpod
 class AppService extends _$AppService {
   @override
   AppState build() {
-    return AppState.initial();
+    return AppState();
   }
 
   void onLoginSuccess() {

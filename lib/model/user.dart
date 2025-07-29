@@ -1,20 +1,36 @@
-// 사용자 상태를 나타내는 클래스
-class User {
-  final String? _userId;
-  final String? _userPw;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const User({String? userId = '', String? userPw = ''}) : _userPw = userPw, _userId = userId;
+part 'user.freezed.dart';
+part 'user.g.dart';
 
-  String? get userId => _userId;
-  String? get userPw => _userPw;
-
-  User copyWith({
+@freezed
+abstract class User with _$User {
+  factory User({
     String? userId,
-    String? userPw,
-  }) {
-    return User(
-      userId: userId ?? _userId,
-      userPw: userPw ?? _userPw,
-    );
-  }
+    String? userPw
+  }) = _User;
+
+  factory User.fromJson(Map<String, dynamic> json) =>
+      _$UserFromJson(json);
 }
+
+// migrate from the old User class to the new User class
+// class User {
+//   final String? _userId;
+//   final String? _userPw;
+//
+//   const User({String? userId = '', String? userPw = ''}) : _userPw = userPw, _userId = userId;
+//
+//   String? get userId => _userId;
+//   String? get userPw => _userPw;
+//
+//   User copyWith({
+//     String? userId,
+//     String? userPw,
+//   }) {
+//     return User(
+//       userId: userId ?? _userId,
+//       userPw: userPw ?? _userPw,
+//     );
+//   }
+// }

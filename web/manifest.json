@@ -1,6 +1,6 @@
 {
-    "name": "start_kit01",
-    "short_name": "start_kit01",
+    "name": "start_kit",
+    "short_name": "start_kit",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

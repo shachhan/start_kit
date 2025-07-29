@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import '../model/appState.dart';
 import '../constant/designSize.dart';
+import '../model/appState.dart';
 import '../service/appService.dart';
 import '../service/sharedService.dart';
 import '../style/style.dart';
@@ -29,9 +29,9 @@ class _InitViewState extends ConsumerState<InitView> {
   /// auto login check in a cache storage.
   /// if set it check on the login page, it will be true.
   Future<bool> _checkAutoLogin() async {
-    setState(() {
-      label = '..확인중..';
-    });
+    // setState(() {
+    //   label = '..확인중..';
+    // });
     final res = await sharedService.checkAndGetAutoLogin();
     return res;
   }
@@ -39,7 +39,7 @@ class _InitViewState extends ConsumerState<InitView> {
   /// check autoLogin
   /// if true, call autoLogin
   /// if false, call initSuccess
-  Future<void> onAppStart(BuildContext context, AppService appService, AppState appState) async {
+  Future<void> onAppStartNew(BuildContext context, WidgetRef ref, AppState appState) async {
     final isAutoLogin = await _checkAutoLogin();
     if (isAutoLogin) {
       if (context.mounted) {
@@ -50,32 +50,32 @@ class _InitViewState extends ConsumerState<InitView> {
 
       // todo: get login info from SharedService
     } else {
-      if (context.mounted) {
-        setState(() {
-          label = '..실행중..';
-        });
-      }
+      // if (context.mounted) {
+      //   setState(() {
+      //     label = '..실행중..';
+      //   });
+      // }
       // init success
       if (!appState.initialized) {
-        await Future.delayed(const Duration(milliseconds: 2000));
+        await Future.delayed(const Duration(milliseconds: 200));
+        final appService = ref.read(appServiceProvider.notifier);
         appService.onInitSuccess();
 
-        if (context.mounted) {
-          setState(() {
-            label = '완료';
-          });
-        }
+        // if (context.mounted) {
+        //   setState(() {
+        //     label = '완료';
+        //   });
+        // }
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final appService = ref.read(appServiceProvider.notifier);
     final appState = ref.watch(appServiceProvider);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await onAppStart(context, appService, appState);
+      await onAppStartNew(context, ref, appState);
     });
 
     if (defaultTargetPlatform == TargetPlatform.iOS) {

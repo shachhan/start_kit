@@ -67,4 +67,9 @@ class MyValidator {
     }
     return null;
   }
+
+  static RegExp commentAllowedFormat = RegExp(
+    r'[^\p{L}\p{N}\s.,;:?!@#$%^&*-_=+~()<>{}[\]/]',
+    unicode: true,
+  );
 }

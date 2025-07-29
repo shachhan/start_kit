@@ -6,7 +6,7 @@ part of 'appService.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appServiceHash() => r'498331e883a6344b5909876ffd76ec387e00ee5f';
+String _$appServiceHash() => r'b40cec4bbd6ef579b9e93a71ffda10d005dd1616';
 
 /// See also [AppService].
 @ProviderFor(AppService)
@@ -14,10 +14,9 @@ final appServiceProvider =
     AutoDisposeNotifierProvider<AppService, AppState>.internal(
       AppService.new,
       name: r'appServiceProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$appServiceHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$appServiceHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

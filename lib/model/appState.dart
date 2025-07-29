@@ -1,27 +1,15 @@
-// State class to hold the app state
-class AppState {
-  final bool loginState;
-  final bool initialized;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const AppState({
-    required this.loginState,
-    required this.initialized,
-  });
+part 'appState.freezed.dart';
+part 'appState.g.dart';
 
-  // Initial state factory
-  factory AppState.initial() => const AppState(
-    loginState: false,
-    initialized: false,
-  );
+@freezed
+abstract class AppState with _$AppState {
+  factory AppState({
+    @Default(false) bool loginState,
+    @Default(false) bool initialized,
+  }) = _AppState;
 
-  // CopyWith method for immutable state updates
-  AppState copyWith({
-    bool? loginState,
-    bool? initialized,
-  }) {
-    return AppState(
-      loginState: loginState ?? this.loginState,
-      initialized: initialized ?? this.initialized,
-    );
-  }
+  factory AppState.fromJson(Map<String, dynamic> json) =>
+      _$AppStateFromJson(json);
 }
