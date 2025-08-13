@@ -39,10 +39,12 @@ class _InitViewState extends ConsumerState<InitView> {
   /// check autoLogin
   /// if true, call autoLogin
   /// if false, call initSuccess
-  Future<void> onAppStartNew(BuildContext context, WidgetRef ref, AppState appState) async {
+  Future<void> onAppStart(BuildContext context, WidgetRef ref, AppState appState) async {
     final isAutoLogin = await _checkAutoLogin();
+    final appService = ref.read(appServiceProvider.notifier);
+
     if (isAutoLogin) {
-      if (context.mounted) {
+      if (mounted) {
         setState(() {
           label = '..자동로그인중..';
         });
@@ -50,33 +52,30 @@ class _InitViewState extends ConsumerState<InitView> {
 
       // todo: get login info from SharedService
     } else {
-      // if (context.mounted) {
-      //   setState(() {
-      //     label = '..실행중..';
-      //   });
-      // }
-      // init success
       if (!appState.initialized) {
         await Future.delayed(const Duration(milliseconds: 200));
-        final appService = ref.read(appServiceProvider.notifier);
         appService.onInitSuccess();
-
-        // if (context.mounted) {
-        //   setState(() {
-        //     label = '완료';
-        //   });
-        // }
       }
     }
   }
 
+  Future<void> _startApp() async {
+    final appState = ref.read(appServiceProvider);
+    await onAppStart(context, ref, appState);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _startApp();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final appState = ref.watch(appServiceProvider);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await onAppStartNew(context, ref, appState);
-    });
 
     if (defaultTargetPlatform == TargetPlatform.iOS) {
       ScreenUtil.init(context, designSize: minIOS);
