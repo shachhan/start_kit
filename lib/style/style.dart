@@ -23,21 +23,21 @@ class TextGuide {
   const TextGuide._();
 
   static const notoRegular16 = TextStyle(
-    fontFamily: NotoSansKr.fontFamily,
+    fontFamily: NotoSansKr.font,
     fontWeight: NotoSansKr.regular,
     color: ColorPalette.black,
     fontSize: 16,
   );
 
   static const nanumSquareRegular16 = TextStyle(
-    fontFamily: NanumSquare.fontFamily,
+    fontFamily: NanumSquare.font,
     fontWeight: NanumSquare.regular,
     color: ColorPalette.black,
     fontSize: 16,
   );
 
   static const nanumRegular16 = TextStyle(
-    fontFamily: Nanum.fontFamily,
+    fontFamily: Nanum.font,
     fontWeight: Nanum.regular,
     color: ColorPalette.black,
     fontSize: 16,

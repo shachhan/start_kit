@@ -6,21 +6,57 @@ part of 'appService.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(AppService)
+const appServiceProvider = AppServiceProvider._();
+
+final class AppServiceProvider extends $NotifierProvider<AppService, AppState> {
+  const AppServiceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'appServiceProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$appServiceHash();
+
+  @$internal
+  @override
+  AppService create() => AppService();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AppState value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AppState>(value),
+    );
+  }
+}
+
 String _$appServiceHash() => r'b40cec4bbd6ef579b9e93a71ffda10d005dd1616';
 
-/// See also [AppService].
-@ProviderFor(AppService)
-final appServiceProvider =
-    AutoDisposeNotifierProvider<AppService, AppState>.internal(
-      AppService.new,
-      name: r'appServiceProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$appServiceHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-typedef _$AppService = AutoDisposeNotifier<AppState>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$AppService extends $Notifier<AppState> {
+  AppState build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AppState, AppState>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AppState, AppState>,
+              AppState,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

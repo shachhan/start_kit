@@ -34,10 +34,24 @@ class AppService extends _$AppService {
 // AppService의 상태 변화를 추적하기 위한 Listenable 클래스
 class AppStateListenable extends ChangeNotifier {
   final Ref ref;
+  bool _isInit = false;
+  bool _isLoggedIn = false;
+
+  bool get isInit => _isInit;
+  bool get isLoggedIn => _isLoggedIn;
 
   AppStateListenable(this.ref) {
-    ref.listen(appServiceProvider, (_, __) {
-      notifyListeners();
+    ref.listen(appServiceProvider, (previous, next) {
+      final oldInit = previous?.initialized ?? false;
+      final oldLogin = previous?.loginState ?? false;
+      final newInit = next.initialized;
+      final newLogin = next.loginState;
+
+      if (oldInit != newInit || oldLogin != newLogin) {
+        _isInit = newInit;
+        _isLoggedIn = newLogin;
+        notifyListeners();
+      }
     });
   }
 }

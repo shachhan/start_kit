@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -53,7 +54,7 @@ class SharedService {
   }
 
   /// auto Login method
-  Future<bool> autoLogin() async {
+  Future<bool> autoLogin(WidgetRef ref) async {
 
     final userId = await getUserId();
     final userPw = await getUserPassword();

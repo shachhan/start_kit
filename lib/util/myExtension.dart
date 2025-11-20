@@ -23,6 +23,9 @@ extension StringExtension on String {
     }
   }
 
+  /// Adds thousand separators to the string if it represents a valid number.
+  /// If the string is not a valid number, it returns the original string.
+  /// Example: '1000' returns '1,000', 'abc' returns 'abc'.
   String get addThousandSeparatorIfIsNumber {
     final RegExp regExp = RegExp(r'^\d+$');
     if (!regExp.hasMatch(this)) {
@@ -32,6 +35,9 @@ extension StringExtension on String {
     return numb.format(intString);
   }
 
+  /// Adds thousand separators and appends '원' to the string if it represents a valid number.
+  /// If the string is not a valid number, it returns the original string.
+  /// Example: '1000' returns '1,000원', 'abc' returns
   String get addThousandSeparatorAndWonIfIsNumber {
     final RegExp regExp = RegExp(r'^\d+$');
     if (!regExp.hasMatch(this)) {
@@ -39,5 +45,39 @@ extension StringExtension on String {
     }
     final intString = int.parse(this);
     return '${numb.format(intString)}원';
+  }
+
+  /// Formats a 6-digit string as a birth date in the format yy.MM.dd
+  String get getBirthSixDigit {
+    if (isEmpty) {
+      return this; // Return the original string if it is empty
+    }
+
+    final RegExp regExp = RegExp(r'^\d{0,6}$');
+    if (!regExp.hasMatch(this)) {
+      return this; // Return the original string if it is not a valid six-digit number
+    }
+    return '${substring(0, 2)}.${substring(2, 4)}.${substring(4, 6)}';
+  }
+
+  /// Converts an 8-digit string in the format YYYYMMDD to YYYY.MM.DD
+  String get toDateStringWithDot {
+    if (length != 8) {
+      return this; // Return the original string if it is not 8 characters long
+    }
+    final RegExp regExp = RegExp(r'^\d{8}$');
+    if (!regExp.hasMatch(this)) {
+      return this; // Return the original string if it is not a valid eight-digit number
+    }
+    return '${substring(0, 4)}.${substring(4, 6)}.${substring(6, 8)}';
+  }
+
+  /// Safely converts the string to double.
+  double get toSafeDouble {
+    if (isEmpty) {
+      return 0;
+    } else {
+      return double.parse(this);
+    }
   }
 }
