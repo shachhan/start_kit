@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'router/appRouter.dart';
 
@@ -9,8 +10,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  // todo: migrate to Riverpod, go_router
-  runApp(ProviderScope(child: const MyApp()));
+  // ScreenUtil init
+  await ScreenUtil.ensureScreenSize();
+
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
@@ -29,9 +32,20 @@ class MyApp extends ConsumerWidget {
           darkTheme: ThemeData.dark(useMaterial3: true),
           routerConfig: router,
           builder: (context, widget) {
+            ScreenUtil.init(context);
             return MediaQuery(
               data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
-              child: widget!,
+              child: Theme(
+                data: ThemeData(
+                  primarySwatch: Colors.blue,
+                  textTheme: TextTheme(
+                    bodyLarge: TextStyle(fontSize: 16.sp),
+                    bodyMedium: TextStyle(fontSize: 14.sp),
+                    bodySmall: TextStyle(fontSize: 12.sp),
+                  ),
+                ),
+                child: widget!
+              ),
             );
           },
           localizationsDelegates: const [

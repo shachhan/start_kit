@@ -1,3 +1,5 @@
+import 'package:start_kit/widget/platformResponsiveWidget.dart';
+
 import '../constant/designSize.dart';
 import '../style/style.dart';
 import 'package:flutter/foundation.dart';
@@ -9,32 +11,17 @@ class TempView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (defaultTargetPlatform == TargetPlatform.iOS) {
-      ScreenUtil.init(context, designSize: minIOS);
-      return Scaffold(
+    return PlatformResponsiveWidget(
+      iosWidget: Scaffold(
         body: Center(
-          child: Text(
-            'iOS 임시페이지입니다.',
-            style: TextGuide.notoRegular16.copyWith(fontSize: 16.sp),
-          ),
+          child: Text('iOS 임시페이지입니다.'),
         ),
-      );
-    } else if (defaultTargetPlatform == TargetPlatform.android) {
-      ScreenUtil.init(context, designSize: minAndroid);
-      return Scaffold(
+      ),
+      androidWidget: Scaffold(
         body: Center(
-          child: Text(
-            'Android 임시페이지입니다.',
-            style: TextGuide.notoRegular16.copyWith(fontSize: 16.sp),
-          ),
+          child: Text('Android 임시페이지입니다.'),
         ),
-      );
-    } else {
-      return const Scaffold(
-        body: Center(
-          child: Text('Temp Page'),
-        ),
-      );
-    }
+      ),
+    );
   }
 }

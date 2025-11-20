@@ -1,14 +1,16 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
 
-import '../constant/designSize.dart';
 import '../model/appState.dart';
+import '../router/routeUtils.dart';
 import '../service/appService.dart';
 import '../service/sharedService.dart';
 import '../style/style.dart';
+import '../util/logger.dart';
+import '../widget/platformResponsiveWidget.dart';
 
 class InitView extends ConsumerStatefulWidget {
   const InitView({super.key});
@@ -39,8 +41,9 @@ class _InitViewState extends ConsumerState<InitView> {
   /// check autoLogin
   /// if true, call autoLogin
   /// if false, call initSuccess
-  Future<void> onAppStartNew(BuildContext context, WidgetRef ref, AppState appState) async {
+  Future<void> onAppStart(BuildContext context, WidgetRef ref, AppState appState) async {
     final isAutoLogin = await _checkAutoLogin();
+    final appService = ref.read(appServiceProvider.notifier);
     if (isAutoLogin) {
       if (context.mounted) {
         setState(() {
@@ -48,39 +51,48 @@ class _InitViewState extends ConsumerState<InitView> {
         });
       }
 
-      // todo: get login info from SharedService
+      final res = await sharedService.autoLogin(ref);
+      if (res) {
+        logger.i('Auto login success!');
+        appService.onAutoLoginSuccess();
+
+        /// 4 홈 화면으로 이동
+        if (context.mounted) {
+          context.go(RouteUtil.path.home);
+        }
+      } else {
+        await Future.delayed(const Duration(milliseconds: 200));
+        appService.onInitSuccess();
+      }
+
     } else {
-      // if (context.mounted) {
-      //   setState(() {
-      //     label = '..실행중..';
-      //   });
-      // }
-      // init success
       if (!appState.initialized) {
         await Future.delayed(const Duration(milliseconds: 200));
-        final appService = ref.read(appServiceProvider.notifier);
         appService.onInitSuccess();
-
-        // if (context.mounted) {
-        //   setState(() {
-        //     label = '완료';
-        //   });
-        // }
       }
     }
   }
 
+  Future<void> _startApp() async {
+    final appState = ref.read(appServiceProvider);
+    await onAppStart(context, ref, appState);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _startApp();
+      }
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    final appState = ref.watch(appServiceProvider);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await onAppStartNew(context, ref, appState);
-    });
-
-    if (defaultTargetPlatform == TargetPlatform.iOS) {
-      ScreenUtil.init(context, designSize: minIOS);
-      return Scaffold(
+    return PlatformResponsiveWidget(
+      iosWidget: Scaffold(
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -93,10 +105,8 @@ class _InitViewState extends ConsumerState<InitView> {
             ],
           ),
         ),
-      );
-    } else if (defaultTargetPlatform == TargetPlatform.android) {
-      ScreenUtil.init(context, designSize: minAndroid);
-      return Scaffold(
+      ),
+      androidWidget: Scaffold(
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -109,22 +119,7 @@ class _InitViewState extends ConsumerState<InitView> {
             ],
           ),
         ),
-      );
-    } else {
-      return Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SpinKitFadingCircle(color: Colors.orange),
-              SizedBox(height: 10),
-              Text(label,
-                style: TextGuide.notoRegular16,
-              ),
-            ],
-          ),
-        ),
-      );
-    }
+      ),
+    );
   }
 }

@@ -1,14 +1,16 @@
 import 'package:intl/intl.dart';
 
 class DateUtil {
+  DateUtil._();
+
   /// 주의 첫날 찾기
-  static firstDayOfWeek({required DateTime date}) {
+  static DateTime firstDayOfWeek({required DateTime date}) {
     DateTime result = DateTime(date.year, date.month, date.day - (date.weekday - 1));
     return result;
   }
 
   /// 주의 마지막날 찾기
-  static lastDayOfWeek({required DateTime date}) {
+  static DateTime lastDayOfWeek({required DateTime date}) {
     DateTime result = DateTime(date.year, date.month, date.day + (7 - date.weekday));
     return result;
   }
@@ -41,6 +43,7 @@ class DateUtil {
   }
 
   /// 날짜 형식 변환하기
+  /// regDateStr 형식: 2025-05-30 -> formatted : 2025.05.30 (월)
   static String dateFormat(String dateStr, String format) {
     // regDateStr 형식: 2025-05-30 -> formatted : 2025.05.30 (월)
     final regExp = RegExp(r'^\d[\d.\-]*\d$');

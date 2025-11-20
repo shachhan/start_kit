@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -44,10 +43,9 @@ class AppRouter {
     errorBuilder: (context, state) => const ErrorView(),
     refreshListenable: _appStateListenable,
     redirect: (context, state) {
-      // 앱 상태를 항상 listen 하기 위해 watch 사용
-      final appState = _ref.watch(appServiceProvider);
-      final isInit = appState.initialized;
-      final isLogin = appState.loginState;
+      // riverpod watch 대신 _appStateListenable의 상태 값 사용
+      final isInit = _appStateListenable.isInit;
+      final isLogin = _appStateListenable.isLoggedIn;
 
       // 초기화 되지 않았을 경우 init 페이지로 이동
       if (!isInit && !isLogin) {
