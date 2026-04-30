@@ -10,13 +10,13 @@ part of 'albumViewModel.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(albumRepository)
-const albumRepositoryProvider = AlbumRepositoryProvider._();
+final albumRepositoryProvider = AlbumRepositoryProvider._();
 
 final class AlbumRepositoryProvider
     extends
         $FunctionalProvider<AlbumRepository, AlbumRepository, AlbumRepository>
     with $Provider<AlbumRepository> {
-  const AlbumRepositoryProvider._()
+  AlbumRepositoryProvider._()
     : super(
         from: null,
         argument: null,
@@ -55,7 +55,7 @@ String _$albumRepositoryHash() => r'de92e6969699abb63bdb71d3a79928cc01597def';
 /// ViewModel은 UI에 표시할 데이터를 가져오고, UI에서 사용자 입력을 처리하며, Repository에 데이터를 요청합니다.
 
 @ProviderFor(AlbumViewModel)
-const albumViewModelProvider = AlbumViewModelProvider._();
+final albumViewModelProvider = AlbumViewModelProvider._();
 
 /// ViewModel은 UI와 Repository 사이에서 데이터를 처리하고 관리합니다.
 /// ViewModel은 UI에 표시할 데이터를 가져오고, UI에서 사용자 입력을 처리하며, Repository에 데이터를 요청합니다.
@@ -63,7 +63,7 @@ final class AlbumViewModelProvider
     extends $NotifierProvider<AlbumViewModel, AsyncValue<List<Album>>> {
   /// ViewModel은 UI와 Repository 사이에서 데이터를 처리하고 관리합니다.
   /// ViewModel은 UI에 표시할 데이터를 가져오고, UI에서 사용자 입력을 처리하며, Repository에 데이터를 요청합니다.
-  const AlbumViewModelProvider._()
+  AlbumViewModelProvider._()
     : super(
         from: null,
         argument: null,
@@ -100,7 +100,6 @@ abstract class _$AlbumViewModel extends $Notifier<AsyncValue<List<Album>>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref =
         this.ref as $Ref<AsyncValue<List<Album>>, AsyncValue<List<Album>>>;
     final element =
@@ -111,6 +110,6 @@ abstract class _$AlbumViewModel extends $Notifier<AsyncValue<List<Album>>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
