@@ -41,7 +41,11 @@ class _InitViewState extends ConsumerState<InitView> {
   /// check autoLogin
   /// if true, call autoLogin
   /// if false, call initSuccess
-  Future<void> onAppStart(BuildContext context, WidgetRef ref, AppState appState) async {
+  Future<void> onAppStart(
+    BuildContext context,
+    WidgetRef ref,
+    AppState appState,
+  ) async {
     final isAutoLogin = await _checkAutoLogin();
     final appService = ref.read(appServiceProvider.notifier);
     if (isAutoLogin) {
@@ -51,7 +55,15 @@ class _InitViewState extends ConsumerState<InitView> {
         });
       }
 
-      final res = await sharedService.autoLogin(ref);
+      final res = await sharedService
+          .autoLogin(ref)
+          .timeout(
+            const Duration(seconds: 5),
+            onTimeout: () {
+              logger.w('Auto login timeout!');
+              return false;
+            },
+          );
       if (res) {
         logger.i('Auto login success!');
         appService.onAutoLoginSuccess();
@@ -64,7 +76,6 @@ class _InitViewState extends ConsumerState<InitView> {
         await Future.delayed(const Duration(milliseconds: 200));
         appService.onInitSuccess();
       }
-
     } else {
       if (!appState.initialized) {
         await Future.delayed(const Duration(milliseconds: 200));
@@ -88,7 +99,6 @@ class _InitViewState extends ConsumerState<InitView> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return PlatformResponsiveWidget(
@@ -97,9 +107,10 @@ class _InitViewState extends ConsumerState<InitView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SpinKitFadingCircle(color: Colors.orange, size: 50.w,),
+              SpinKitFadingCircle(color: Colors.orange, size: 50.w),
               SizedBox(height: 20.h),
-              Text(label,
+              Text(
+                label,
                 style: TextGuide.notoRegular16.copyWith(fontSize: 16.sp),
               ),
             ],
@@ -111,9 +122,10 @@ class _InitViewState extends ConsumerState<InitView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SpinKitFadingCircle(color: Colors.orange, size: 50.w,),
+              SpinKitFadingCircle(color: Colors.orange, size: 50.w),
               SizedBox(height: 20.h),
-              Text(label,
+              Text(
+                label,
                 style: TextGuide.notoRegular16.copyWith(fontSize: 16.sp),
               ),
             ],
